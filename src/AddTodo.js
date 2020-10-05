@@ -14,7 +14,7 @@ export const AddTodo = ({onSubmit}) => {
     }
     return (
         <View style={styles.block}>
-            <TextInput style={styles.inpit} onChangeText={setValue} value={value}/>
+            <TextInput style={styles.inpit} onChangeText={setValue} value={value} autoCorrect={false}/>
             <Button title="Добавить" onPress={handlButtonPress}></Button>
         </View>
     );

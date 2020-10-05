@@ -1,15 +1,24 @@
 import React from 'react';
-import { View, Text, StyleSheet, TextInput, Button } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, TextInput, Button } from 'react-native';
 
-export const Todo = ({todos}) => {
+export const Todo = ({todos, onRemove}) => {
     return (
-        <View style={styles.todos}>
-            {todos.map(todo => {
-            return (
-              <Text key={todo.id} style={styles.todo}>{todo.title}</Text>
-            );
-          })}
-        </View>
+        <FlatList 
+          style={styles.todos}
+          data={todos}
+          keyExtractor={item => item.id.toString()}
+          renderItem={({item}) => (
+         <TouchableOpacity 
+            activeOpacity={0.4} 
+            onPress={() => {}}
+            onLongPress={onRemove.bind(null, item.id)}
+         >
+          <Text
+            style={styles.todo}>
+            {item.title}
+          </Text>
+         </TouchableOpacity>)}>
+        </FlatList>
     );
 }
 
