@@ -3,5 +3,6 @@ export const THEME = {
         danger: "#ff0000",
         grey: "#757575",
         main: "#000",
+        green: "#006400",
     }
 }
