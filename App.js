@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import { StyleSheet, View, } from 'react-native';
 import {Navbar} from './src/components/Navbar';
 import {MainScreen} from './src/screens/MainScreen';
+import {TodoScreen} from './src/screens/TodoScreen';
 
 export default function App() {
   const [todoId, setTodoId] = useState(null);
@@ -15,10 +16,15 @@ export default function App() {
     setTodos(prevState => prevState.filter(todo => todo.id !== id))
   }
 
-  let content = <MainScreen todos={todos} handleChangetextfield={handleChangetextfield} handleTodoLongPress={handleTodoLongPress}/>;
+  let content = <MainScreen 
+    todos={todos}
+    handleChangetextfield={handleChangetextfield}
+    handleTodoLongPress={handleTodoLongPress}
+    openTodo={setTodoId}/>;
 
   if (todoId) {
-    content = <TodoScreen />
+    const todo = todos.find(item => item.id === todoId);
+    content = <TodoScreen goBack={() => setTodoId(null)} todo={todo}/>
   }
 
   return (

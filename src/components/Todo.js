@@ -1,7 +1,8 @@
 import React from 'react';
 import { Text, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
+import { THEME } from '../theme';
 
-export const Todo = ({todos, onRemove}) => {
+export const Todo = ({todos, onRemove, onOpen}) => {
     return (
         <FlatList 
           style={styles.todos}
@@ -10,7 +11,7 @@ export const Todo = ({todos, onRemove}) => {
           renderItem={({item}) => (
          <TouchableOpacity 
             activeOpacity={0.4} 
-            onPress={() => {}}
+            onPress={onOpen.bind(null, item.id)}
             onLongPress={onRemove.bind(null, item.id)}
          >
           <Text
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
         paddingVertical: 13,
         paddingHorizontal: 10,
         borderStyle: 'solid',
-        borderColor: '#000',
+        borderColor: THEME.pallete.main,
         borderWidth: 1,
         marginBottom: 8,
         borderRadius: 5,
