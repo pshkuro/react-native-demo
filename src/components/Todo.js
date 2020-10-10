@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, TextInput, Button } from 'react-native';
+import { Text, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
 
 export const Todo = ({todos, onRemove}) => {
     return (

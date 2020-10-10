@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
-import { StyleSheet, Text, View, ScrollView, FlatList } from 'react-native';
-import {Navbar} from './src/Navbar';
-import {AddTodo} from './src/AddTodo';
-import {Todo} from './src/Todo';
+import { StyleSheet, View, } from 'react-native';
+import {Navbar} from './src/components/Navbar';
+import {MainScreen} from './src/screens/MainScreen';
 
 export default function App() {
+  const [todoId, setTodoId] = useState(null);
   const [todos, setTodos] = useState([]);
+
   const handleChangetextfield = (title) => {
     setTodos(prevState => [...prevState, {id: Date.now().toString(), title}]);
   }
@@ -14,12 +15,17 @@ export default function App() {
     setTodos(prevState => prevState.filter(todo => todo.id !== id))
   }
 
+  let content = <MainScreen todos={todos} handleChangetextfield={handleChangetextfield} handleTodoLongPress={handleTodoLongPress}/>;
+
+  if (todoId) {
+    content = <TodoScreen />
+  }
+
   return (
     <View>
       <Navbar/>
       <View style={styles.container}>
-        <AddTodo onSubmit={handleChangetextfield}/>
-        <Todo todos={todos} onRemove={handleTodoLongPress}/>
+        {content}
       </View>
     </View>
   );
