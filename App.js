@@ -12,6 +12,15 @@ export default function App() {
     setTodos(prevState => [...prevState, {id: Date.now().toString(), title}]);
   }
 
+  const updateTodo = (id, title) => {
+    setTodos(prevState => prevState.map(todo => {
+      if (todo.id === id) {
+        todo.title = title;
+      }
+      return todo;
+    }))
+  }
+
   const handleTodoLongPress = (id) => {
     const todo = todos.find(item => item.id);
     Alert.alert(
@@ -43,7 +52,7 @@ export default function App() {
 
   if (todoId) {
     const todo = todos.find(item => item.id === todoId);
-    content = <TodoScreen goBack={() => setTodoId(null)} todo={todo} removeTodo={handleTodoLongPress}/>
+    content = <TodoScreen goBack={() => setTodoId(null)} todo={todo} removeTodo={handleTodoLongPress} onSave={updateTodo}/>
   }
 
   return (
