@@ -4,11 +4,18 @@ import {THEME} from '../theme';
 
 export const EditModal = ({visible, onClose}) => {
     return (
-        <Modal visible={visible}>
+        <Modal visible={visible} animationType="slide">
             <View style={styles.modal}>
-                <TextInput />
-                <Button title="Отменить" onPress={onClose}/>
-                <Button title="Сохранить"/>
+                <TextInput 
+                    style={styles.input} 
+                    placeholder="Введите новое название" 
+                    autoCapitalize="none" 
+                    autoCorrect={false}
+                    maxLength={40}/>
+                <View style={styles.btn_group}>
+                    <Button title="Отменить" onPress={onClose} color={THEME.pallete.danger}/>
+                    <Button title="Сохранить"/>
+               </View>
             </View>
         </Modal>
     );
@@ -19,5 +26,17 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         flex: 1,
+    },
+    input: {
+        borderBottomColor: THEME.pallete.main,
+        borderBottomWidth: 1,
+        width: '80%',
+        padding: 10,
+    },
+    btn_group: {
+        width: '100%',
+        marginTop: 10,
+        flexDirection: 'row',
+        justifyContent: 'space-around'
     },
   });

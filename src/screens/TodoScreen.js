@@ -7,18 +7,14 @@ import {EditModal} from '../components/EditModal';
 export const TodoScreen = ({goBack, todo, removeTodo}) => {
     const [modal, setModal] = useState(false);
 
-    const changeModalVisible = () => {
-        setModal(prevState => [...prevState, {modal: !prevState}]);
-    }
-
     return (
         <View>
-           <EditModal visible={modal} onClose={changeModalVisible}/>
+           <EditModal visible={modal} onClose={() => setModal(false)}/>
            <Card style={styles.card}>
                 <Text style={styles.title}>
                     {todo.title}
                 </Text>
-                <Button title="Редактировать" onPress={changeModalVisible}/>
+                <Button title="Редактировать" onPress={() => setModal(true)}/>
             </Card>
            <View style={styles.btn_group}>
             <View style={styles.btn}>
