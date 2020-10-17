@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
-import { StyleSheet, View, Text, Button } from 'react-native';
+import { StyleSheet, View, Button } from 'react-native';
 import {THEME} from '../theme';
 import {Card} from '../ui/Card';
+import {TypographyBold} from '../ui/TypographyBold';
 import {EditModal} from '../components/EditModal';
 
 export const TodoScreen = ({goBack, todo, removeTodo, onSave}) => {
@@ -16,9 +17,9 @@ export const TodoScreen = ({goBack, todo, removeTodo, onSave}) => {
         <View>
            <EditModal value={todo.title} visible={modal} onClose={() => setModal(false)} onSave={saveHandler}/>
            <Card style={styles.card}>
-                <Text style={styles.title}>
+                <TypographyBold style={styles.title}>
                     {todo.title}
-                </Text>
+                </TypographyBold>
                 <Button title="Редактировать" onPress={() => setModal(true)}/>
             </Card>
            <View style={styles.btn_group}>

@@ -1,5 +1,7 @@
 import React from 'react';
 import { Text, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
+
+import {TypographyDefault} from '../ui/TypographyDefault';
 import { THEME } from '../theme';
 
 export const Todo = ({todos, onRemove, onOpen}) => {
@@ -14,10 +16,10 @@ export const Todo = ({todos, onRemove, onOpen}) => {
             onPress={onOpen.bind(null, item.id)}
             onLongPress={onRemove.bind(null, item.id)}
          >
-          <Text
+          <TypographyDefault
             style={styles.todo}>
             {item.title}
-          </Text>
+          </TypographyDefault>
          </TouchableOpacity>)}>
         </FlatList>
     );
@@ -35,7 +37,6 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         marginBottom: 8,
         borderRadius: 5,
-        fontFamily: 'roboto-bold',
     },
 
   });
