@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         marginBottom: 8,
         borderRadius: 5,
+        fontFamily: 'roboto-bold',
     },
 
   });
