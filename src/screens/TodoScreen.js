@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
-import { StyleSheet, View, Button } from 'react-native';
+import { StyleSheet, View, Button} from 'react-native';
 import {THEME} from '../theme';
 import {Card} from '../ui/Card';
 import {TypographyBold} from '../ui/TypographyBold';
 import {EditModal} from '../components/EditModal';
+import {DefaultButton} from '../ui/Button';
 
 export const TodoScreen = ({goBack, todo, removeTodo, onSave}) => {
     const [modal, setModal] = useState(false);
@@ -20,20 +21,25 @@ export const TodoScreen = ({goBack, todo, removeTodo, onSave}) => {
                 <TypographyBold style={styles.title}>
                     {todo.title}
                 </TypographyBold>
-                <Button title="Редактировать" onPress={() => setModal(true)}/>
+                <DefaultButton onPress={() => setModal(true)}>
+                    Редактировать
+                </DefaultButton>
             </Card>
            <View style={styles.btn_group}>
             <View style={styles.btn}>
-                <Button 
+                <DefaultButton 
                 title="Назад" 
-                onPress={goBack} color={THEME.pallete.grey}/>
+                onPress={goBack}
+                color={THEME.pallete.grey}>
+                    Назад
+                </DefaultButton>
            </View>
            <View style={styles.btn}>
-                <Button 
-                title="Удалить" 
-                onPress={() => {}} 
-                color={THEME.pallete.danger} 
-                onPress={removeTodo.bind(null, todo.id)}/>
+                <DefaultButton 
+                    onPress={removeTodo.bind(null, todo.id)}
+                    color={THEME.pallete.danger}>
+                    Удалить
+                </DefaultButton>
            </View>
            </View>
        </View>
@@ -48,9 +54,6 @@ const styles = StyleSheet.create({
     },
     btn: {
         width: "45%",
-        borderColor: THEME.pallete.main,
-        borderWidth: 1,
-        borderStyle: 'solid',
     },
     title: {
         fontSize: 20,
@@ -58,5 +61,5 @@ const styles = StyleSheet.create({
     card: {
         marginBottom: 20,
         height: 100,
-    }
+    },
   });

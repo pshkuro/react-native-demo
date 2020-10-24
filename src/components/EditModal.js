@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, TextInput, Button, Modal, Alert } from 'react-native';
+
+import {DefaultButton} from '../ui/Button';
 import {THEME} from '../theme';
 
 export const EditModal = ({visible, onClose, value, onSave}) => {
@@ -26,8 +28,8 @@ export const EditModal = ({visible, onClose, value, onSave}) => {
                     maxLength={40}
                     />
                 <View style={styles.btn_group}>
-                    <Button title="Отменить" onPress={onClose} color={THEME.pallete.danger}/>
-                    <Button title="Сохранить" onPress={saveHandler}/>
+                    <DefaultButton onPress={onClose} color={THEME.pallete.danger}>Отменить</DefaultButton>
+                    <DefaultButton onPress={saveHandler}>Сохранить</DefaultButton>
                </View>
             </View>
         </Modal>
