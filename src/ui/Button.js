@@ -1,16 +1,18 @@
 import React, {useState} from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, TouchableNativeFeedback, Platform} from 'react-native';
 
 import {TypographyBold} from '../ui/TypographyBold';
 import {THEME} from '../theme';
 
 export const DefaultButton = ({children, onPress, bgColor = '#fff', color = THEME.pallete.main}) => {
+    const Wrapper = Platform.OS === 'android' ? TouchableNativeFeedback : TouchableOpacity;
+    
     return (
-        <TouchableOpacity onPress={onPress}>
+        <Wrapper onPress={onPress}>
             <View style={{...styles.button, backgroundColor: bgColor, borderColor: color}}>
                 <TypographyBold style={{color: color}}>{children}</TypographyBold>
             </View>
-        </TouchableOpacity>
+        </Wrapper>
     );
 }
 
