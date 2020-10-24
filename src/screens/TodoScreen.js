@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { StyleSheet, View, Dimensions} from 'react-native';
 import {FontAwesome, AntDesign} from '@expo/vector-icons';
 
@@ -11,13 +11,29 @@ import {DefaultButton} from '../ui/Button';
 export const TodoScreen = ({goBack, todo, removeTodo, onSave}) => {
     const [modal, setModal] = useState(false);
 
+    const defaultWidth = Dimensions.get('window').width - THEME.padding.horizontal * 2;
+    const [deviceWidth, setDeviceWidth] = useState(defaultWidth);
+
+    // Без второго параметра запустится только один раз === ComponentDidMount
+    useEffect(() => {
+        const update = () => {
+            const width = Dimensions.get('window').width - THEME.padding.horizontal * 2;
+            setDeviceWidth(width)
+        }
+        Dimensions.addEventListener('change', update);
+
+        return () => {
+            Dimensions.removeEventListener('change', update);
+        }
+    })
+
     const saveHandler = (title) => {
         onSave(todo.id, title);
         setModal(false);
     }
 
     return (
-        <View>
+        <View style={{width: deviceWidth}}>
            <EditModal value={todo.title} visible={modal} onClose={() => setModal(false)} onSave={saveHandler}/>
            <Card style={styles.card}>
                 <TypographyBold style={styles.title}>
