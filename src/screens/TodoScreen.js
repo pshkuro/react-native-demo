@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
-import { StyleSheet, View, Button} from 'react-native';
+import { StyleSheet, View} from 'react-native';
+import {FontAwesome, AntDesign} from '@expo/vector-icons';
+
 import {THEME} from '../theme';
 import {Card} from '../ui/Card';
 import {TypographyBold} from '../ui/TypographyBold';
@@ -22,7 +24,7 @@ export const TodoScreen = ({goBack, todo, removeTodo, onSave}) => {
                     {todo.title}
                 </TypographyBold>
                 <DefaultButton onPress={() => setModal(true)}>
-                    Редактировать
+                    <FontAwesome name="edit" size={20}/>
                 </DefaultButton>
             </Card>
            <View style={styles.btn_group}>
@@ -31,14 +33,14 @@ export const TodoScreen = ({goBack, todo, removeTodo, onSave}) => {
                 title="Назад" 
                 onPress={goBack}
                 color={THEME.pallete.grey}>
-                    Назад
+                    <AntDesign name="back" size={20}/>
                 </DefaultButton>
            </View>
            <View style={styles.btn}>
                 <DefaultButton 
                     onPress={removeTodo.bind(null, todo.id)}
                     color={THEME.pallete.danger}>
-                    Удалить
+                    <FontAwesome name="remove" size={20} />
                 </DefaultButton>
            </View>
            </View>
