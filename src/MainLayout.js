@@ -6,28 +6,14 @@ import {Navbar} from './components/Navbar';
 import {MainScreen} from './screens/MainScreen';
 import {TodoScreen} from './screens/TodoScreen';
 import { TodoContext } from './context/todo/todoContext';
+import { ScreenContext } from './context/screen/screenContext';
 
 
 export const MainLayout = () => {
     // Получили контекст который ранее создали
     const {todos, addTodo, updateTodo, removeTodo} = useContext(TodoContext);
-     
-    const [todoId, setTodoId] = useState(null);
-    // const [todos, setTodos] = useState([]);
-
-    // const handleChangetextfield = (title) => {
-    //     setTodos(prevState => [...prevState, {id: Date.now().toString(), title}]);
-    //   }
-    
-    //   const updateTodo = (id, title) => {
-    //     setTodos(prevState => prevState.map(todo => {
-    //       if (todo.id === id) {
-    //         todo.title = title;
-    //       }
-    //       return todo;
-    //     }))
-    //   }
-    
+    const {todoId, changeScreen} = useContext(ScreenContext);
+         
     //   const handleTodoLongPress = (id) => {
     //     const todo = todos.find(item => item.id);
     //     Alert.alert(
@@ -55,12 +41,12 @@ export const MainLayout = () => {
         todos={todos}
         handleChangetextfield={addTodo}
         handleTodoLongPress={removeTodo}
-        openTodo={setTodoId}
+        openTodo={changeScreen} 
     />;
 
     if (todoId) {
         const todo = todos.find(item => item.id === todoId);
-        content = <TodoScreen goBack={() => setTodoId(null)} todo={todo} removeTodo={removeTodo} onSave={updateTodo}/>
+        content = <TodoScreen goBack={() => changeScreen(null)} todo={todo} removeTodo={removeTodo} onSave={updateTodo}/>
     }
 
     return (
