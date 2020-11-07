@@ -3,6 +3,7 @@ import { ADD_TODO, REMOVE_TODO, UPDATE_TODO } from '../types';
 import {TodoContext} from './todoContext';
 import {todoReducer} from './todoReducer';
 
+// Создаем контекст и с помощью него прокидываем наш store и actions в компоненты)
 export const TodoState = ({children}) => {
     const initialArg = {
         todos: [],
@@ -12,7 +13,7 @@ export const TodoState = ({children}) => {
     const [state, dispatch] = useReducer(todoReducer, initialArg);
 
 
-    // Это просто action creators
+    // Это просто actions
     const addTodo = title => dispatch({type: ADD_TODO, title});
 
     const removeTodo = id => dispatch({type: REMOVE_TODO, id});
