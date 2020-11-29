@@ -1,10 +1,16 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import {StyleSheet, View, Image, Dimensions} from 'react-native';
+
 import {AddTodo} from '../components/AddTodo';
 import {Todo} from '../components/Todo';
 import { THEME } from '../theme';
+import { TodoContext } from '../context/todo/todoContext';
+import { ScreenContext } from '../context/screen/screenContext';
 
-export const MainScreen = ({todos, handleChangetextfield, handleTodoLongPress, openTodo }) => {
+export const MainScreen = () => {
+    const {todos, addTodo, removeTodo} = useContext(TodoContext);
+    const {changeScreen} = useContext(ScreenContext);
+ 
     const defaultWidth = Dimensions.get('window').width - THEME.padding.horizontal * 2;
     const [deviceWidth, setDeviceWidth] = useState(defaultWidth);
 
@@ -22,7 +28,7 @@ export const MainScreen = ({todos, handleChangetextfield, handleTodoLongPress, o
     })
 
     let content = (
-        <Todo todos={todos} onRemove={handleTodoLongPress} onOpen={openTodo}/>
+        <Todo todos={todos} onRemove={removeTodo} onOpen={changeScreen}/>
     );
 
     if (todos.length === 0) {
@@ -37,7 +43,7 @@ export const MainScreen = ({todos, handleChangetextfield, handleTodoLongPress, o
 
     return (
        <View style={{ width: deviceWidth}}>
-        <AddTodo onSubmit={handleChangetextfield}/>
+        <AddTodo onSubmit={addTodo}/>
         {content}
        </View>
     );

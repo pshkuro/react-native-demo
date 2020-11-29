@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import { StyleSheet, View, Dimensions} from 'react-native';
 import {FontAwesome, AntDesign} from '@expo/vector-icons';
 
@@ -8,8 +8,15 @@ import {TypographyBold} from '../ui/TypographyBold';
 import {EditModal} from '../components/EditModal';
 import {DefaultButton} from '../ui/Button';
 
-export const TodoScreen = ({goBack, todo, removeTodo, onSave}) => {
+import { TodoContext } from '../context/todo/todoContext';
+import { ScreenContext } from '../context/screen/screenContext';
+
+export const TodoScreen = () => {
     const [modal, setModal] = useState(false);
+    const {todos, updateTodo, removeTodo} = useContext(TodoContext);
+    const {todoId, changeScreen} = useContext(ScreenContext);
+
+    const todo = todos.find(item => item.id === todoId);
 
     const defaultWidth = Dimensions.get('window').width - THEME.padding.horizontal * 2;
     const [deviceWidth, setDeviceWidth] = useState(defaultWidth);
@@ -28,7 +35,7 @@ export const TodoScreen = ({goBack, todo, removeTodo, onSave}) => {
     })
 
     const saveHandler = (title) => {
-        onSave(todo.id, title);
+        updateTodo(todo.id, title);
         setModal(false);
     }
 
@@ -47,7 +54,7 @@ export const TodoScreen = ({goBack, todo, removeTodo, onSave}) => {
             <View style={styles.btn}>
                 <DefaultButton 
                 title="Назад" 
-                onPress={goBack}
+                onPress={() => changeScreen(null)}
                 color={THEME.pallete.grey}>
                     <AntDesign name="back" size={20}/>
                 </DefaultButton>
