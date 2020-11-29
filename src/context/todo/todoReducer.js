@@ -2,12 +2,12 @@ import {ADD_TODO, UPDATE_TODO, REMOVE_TODO, SHOW_LOADER, HIDE_LOADER, FETCH_TODO
 
 // Просто actions creators
 const handlers = {
-    [ADD_TODO]: (state, {title}) => ({
+    [ADD_TODO]: (state, {title, id}) => ({
         ...state,
                 todos: [
                     ...state.todos,
                     {
-                        id: Date.now().toString(),
+                        id,
                         title,
                     }
                 ]

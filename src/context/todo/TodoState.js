@@ -21,7 +21,17 @@ export const TodoState = ({children}) => {
 
 
     // Это просто actions
-    const addTodo = title => dispatch({type: ADD_TODO, title});
+    const addTodo = async title => {
+        const response = await fetch(
+        'https://react-native-todo-app-dffe4.firebaseio.com/todos.json', 
+        {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({title})
+        });
+        const {name} = await response.json();
+        dispatch({type: ADD_TODO, title, id: name});
+    };
 
     const removeTodo = id => {
         const todo = state.todos.find(item => item.id);
