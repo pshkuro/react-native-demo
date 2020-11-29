@@ -15,6 +15,11 @@ export const EditModal = ({visible, onClose, value, onSave}) => {
         }
     }
 
+    const handleCloseBtn = () => {
+        setValue(value);
+        onClose();
+    };
+
     return (
         <Modal visible={visible} animationType="slide">
             <View style={styles.modal}>
@@ -28,7 +33,7 @@ export const EditModal = ({visible, onClose, value, onSave}) => {
                     maxLength={40}
                     />
                 <View style={styles.btn_group}>
-                    <DefaultButton onPress={onClose} color={THEME.pallete.danger}>Отменить</DefaultButton>
+                    <DefaultButton onPress={handleCloseBtn} color={THEME.pallete.danger}>Отменить</DefaultButton>
                     <DefaultButton onPress={saveHandler}>Сохранить</DefaultButton>
                </View>
             </View>
