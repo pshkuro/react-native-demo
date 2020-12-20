@@ -59,22 +59,34 @@ export const TodoState = ({children}) => {
     const updateTodo = (id, title) => dispatch({type: UPDATE_TODO, id, title});
 
     const fetchTodos = async () => {
+        clearError();
         showLoader();
-         const response = await fetch('https://react-native-todo-app-dffe4.firebaseio.com/todos.json', {
-            method: 'GET',
-            headers: {'Content-Type': 'application/json'}
-        });
 
-        const data = await response.json();
-        const todos = Object.keys(data).map(key => ({...data[key], id: key}));
-        getTodos(todos);
-        hideLoader();
+        try {
+            const response = await fetch(
+                'https://react-native-todo-app-dffe4.firebaseio.com/todos.json', 
+            {
+                method: 'GET',
+                headers: {'Content-Type': 'application/json'}
+            });
+
+            const data = await response.json();
+            const todos = Object.keys(data).map(key => ({...data[key], id: key}));
+            getTodos(todos);
+        } catch (e) {
+            showError('Что-то пошло не так...');
+            console.log(e);
+        } finally {
+            hideLoader();
+        }
+
+
     }
 
     const showLoader = () => dispatch({type: SHOW_LOADER});
     const hideLoader = () => dispatch({type: HIDE_LOADER});
-    const clearError = () => dispatch({type: CLEAR_ERROR});
     const showError = (error) => dispatch({type: SHOW_ERROR, error});
+    const clearError = () => dispatch({type: CLEAR_ERROR});
     const getTodos = (todos) => dispatch({type: FETCH_TODOS, todos});
 
     // Provider позволяет дочерним компонентам подписаться на изменения Context

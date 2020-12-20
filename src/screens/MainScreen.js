@@ -7,6 +7,7 @@ import { THEME } from '../theme';
 import { TodoContext } from '../context/todo/todoContext';
 import { ScreenContext } from '../context/screen/screenContext';
 import { DefaultLoader } from '../ui/Loader';
+import { TypographyDefault } from '../ui/TypographyDefault';
 
 export const MainScreen = () => {
     const {todos, addTodo, removeTodo, fetchTodos, loading, error} = useContext(TodoContext);
@@ -36,6 +37,10 @@ export const MainScreen = () => {
 
     if (loading) {
         return <DefaultLoader />
+    }
+
+    if (error) {
+        return <View style={styles.center}><TypographyDefault style={styles.error}></TypographyDefault></View>
     }
 
     let content = (
@@ -71,5 +76,14 @@ const styles = StyleSheet.create({
         height: '100%',
         width: '100%',
         resizeMode: 'contain'
+    },
+    center: {
+        flex: 1,
+        justifyContent: 'center',
+        alignContent: 'center',
+    },
+    error: {
+        fontSize: 20,
+        color: THEME.pallete.danger,
     }
   });
