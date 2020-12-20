@@ -1,4 +1,4 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React, {useState, useContext, useEffect, useCallback} from 'react';
 import {StyleSheet, View, Image, Dimensions} from 'react-native';
 
 import {AddTodo} from '../components/AddTodo';
@@ -8,11 +8,17 @@ import { TodoContext } from '../context/todo/todoContext';
 import { ScreenContext } from '../context/screen/screenContext';
 
 export const MainScreen = () => {
-    const {todos, addTodo, removeTodo} = useContext(TodoContext);
+    const {todos, addTodo, removeTodo, fetchTodos, loading, error} = useContext(TodoContext);
     const {changeScreen} = useContext(ScreenContext);
  
     const defaultWidth = Dimensions.get('window').width - THEME.padding.horizontal * 2;
     const [deviceWidth, setDeviceWidth] = useState(defaultWidth);
+
+    const loadTodos = useCallback(async () => await fetchTodos(), [fetchTodos]);
+
+    useEffect(() => {
+        loadTodos();
+    }, [])
 
     // Без второго параметра запустится только один раз === ComponentDidMount
     useEffect(() => {
