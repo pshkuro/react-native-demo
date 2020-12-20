@@ -1,4 +1,3 @@
-import { FontDisplay } from 'expo-font';
 import React, {useReducer, useContext} from 'react';
 import { Alert } from 'react-native';
 
@@ -60,6 +59,7 @@ export const TodoState = ({children}) => {
     const updateTodo = (id, title) => dispatch({type: UPDATE_TODO, id, title});
 
     const fetchTodos = async () => {
+        showLoader();
          const response = await fetch('https://react-native-todo-app-dffe4.firebaseio.com/todos.json', {
             method: 'GET',
             headers: {'Content-Type': 'application/json'}
@@ -67,7 +67,8 @@ export const TodoState = ({children}) => {
 
         const data = await response.json();
         const todos = Object.keys(data).map(key => ({...data[key], id: key}));
-        dispatch({type: FETCH_TODOS, todos});
+        getTodos(todos);
+        hideLoader();
     }
 
     const showLoader = () => dispatch({type: SHOW_LOADER});

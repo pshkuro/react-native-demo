@@ -6,6 +6,7 @@ import {Todo} from '../components/Todo';
 import { THEME } from '../theme';
 import { TodoContext } from '../context/todo/todoContext';
 import { ScreenContext } from '../context/screen/screenContext';
+import { DefaultLoader } from '../ui/Loader';
 
 export const MainScreen = () => {
     const {todos, addTodo, removeTodo, fetchTodos, loading, error} = useContext(TodoContext);
@@ -32,6 +33,10 @@ export const MainScreen = () => {
             Dimensions.removeEventListener('change', update);
         }
     })
+
+    if (loading) {
+        return <DefaultLoader />
+    }
 
     let content = (
         <Todo todos={todos} onRemove={removeTodo} onOpen={changeScreen}/>
