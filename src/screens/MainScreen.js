@@ -8,6 +8,7 @@ import { TodoContext } from '../context/todo/todoContext';
 import { ScreenContext } from '../context/screen/screenContext';
 import { DefaultLoader } from '../ui/Loader';
 import { TypographyDefault } from '../ui/TypographyDefault';
+import { DefaultButton } from '../ui/Button';
 
 export const MainScreen = () => {
     const {todos, addTodo, removeTodo, fetchTodos, loading, error} = useContext(TodoContext);
@@ -40,7 +41,10 @@ export const MainScreen = () => {
     }
 
     if (error) {
-        return <View style={styles.center}><TypographyDefault style={styles.error}></TypographyDefault></View>
+        return <View style={styles.center}>
+                    <TypographyDefault style={styles.error}>{error}</TypographyDefault>
+                    <DefaultButton onPress={loadTodos}>Повторить</DefaultButton>
+                </View>
     }
 
     let content = (
@@ -80,10 +84,11 @@ const styles = StyleSheet.create({
     center: {
         flex: 1,
         justifyContent: 'center',
-        alignContent: 'center',
+        alignItems: 'center',
     },
     error: {
         fontSize: 20,
         color: THEME.pallete.danger,
+        marginBottom: 15,
     }
   });

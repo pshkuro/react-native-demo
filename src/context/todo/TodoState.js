@@ -64,7 +64,7 @@ export const TodoState = ({children}) => {
 
         try {
             const response = await fetch(
-                'https://react-native-todo-app-dffe4.firebaseio.com/todos.json', 
+                'https://react-native-todo-app-dffe4.firebaseio.com/todos.json',
             {
                 method: 'GET',
                 headers: {'Content-Type': 'application/json'}
